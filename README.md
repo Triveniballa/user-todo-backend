@@ -1,23 +1,115 @@
 User–Todo Management System (Backend)
 
-This project is a backend User–Todo Management System built using Node.js, Express.js, and Supabase (PostgreSQL).
-It demonstrates relational database design, foreign key usage, cascade delete, and complete CRUD operations.
+This repository contains a backend User–Todo Management System demonstrating CRUD operations with relationships using Node.js, Express.js, and Supabase (PostgreSQL).
 
-Objective
+The project focuses on implementing a One-to-Many relationship between two entities: Users and Todos, along with cascade delete behavior enforced at the database level.
 
-To design and implement a backend system that:
+📌 Assignment Overview
 
-Uses a relational schema
+Designed a relational database schema
 
-Links todos to users (one-to-many relationship)
+Implemented foreign key constraints
 
-Enforces cascade delete at the database level
+Enforced cascade delete at the database level
 
-Supports full CRUD operations
+Built RESTful APIs for complete CRUD operations
 
-Follows a clean backend project structure
+Linked todos to users with proper ownership handling
 
-Tech Stack
+Validated inputs and handled errors gracefully
+
+🗂️ Database Design
+Tables Used
+
+users
+
+Stores user account information
+
+todos
+
+Stores todo items created by users
+
+References users.id using a foreign key
+
+Relationship
+
+One User → Many Todos
+
+Implemented using a foreign key
+todos.user_id → users.id
+
+Cascade delete enabled using ON DELETE CASCADE
+
+⚙️ Operations Performed
+CREATE
+
+Created users and todos tables in Supabase
+
+Defined primary keys and foreign key constraints
+
+Created users using signup API
+
+Created todos linked to users
+
+READ
+
+Fetch all todos belonging to a specific user
+
+Fetch user-specific data using relational queries
+
+UPDATE
+
+Update todo title and description
+
+Update todo completion status
+
+DELETE
+
+Delete individual todo items
+
+Delete a user and automatically delete all associated todos (cascade delete)
+
+🔌 API Endpoints
+User APIs
+
+POST /users/signup
+Creates a new user account
+
+Todo APIs (User-Linked)
+
+POST /todos/add-todo
+Create a new todo for a user
+
+GET /todos/get-my-todo/:userId
+Fetch all todos for a user
+
+PUT /todos/update-todo/:todoId
+Update todo details
+
+DELETE /todos/delete-todo/:todoId
+Delete a specific todo
+
+🛡️ Validations & Error Handling
+
+Required field validation for user and todo creation
+
+Email format validation
+
+Password length validation
+
+Invalid user ID and todo ID handling
+
+Proper HTTP status codes with meaningful error messages
+
+🔥 Cascade Delete Behavior
+
+Cascade delete is handled at the database level
+
+When a user is deleted, all related todos are deleted automatically
+
+This ensures data integrity and prevents orphan records
+
+🛠️ Technologies Used
 
 Node.js
 
@@ -27,136 +119,38 @@ Supabase (PostgreSQL)
 
 JavaScript (ES Modules)
 
-Postman (API testing)
+Postman (API Testing)
 
-Project Structure
+🧪 Testing
+
+All APIs were tested using Postman
+
+Requests and responses were validated for correctness
+
+All responses are returned in JSON format
+
+📂 Project Structure
 user-todo-backend/
 │
 ├── config/
-│   └── supabase.js
-│
 ├── controllers/
-│   ├── user.controller.js
-│   └── todo.controller.js
-│
 ├── routes/
-│   ├── user.routes.js
-│   └── todo.routes.js
-│
 ├── validations/
-│   ├── user.validation.js
-│   └── todo.validation.js
-│
-├── .gitignore
 ├── index.js
 ├── package.json
 └── package-lock.json
 
-Database Schema
-Users Table
+✅ Notes
 
-id (UUID, Primary Key)
+Database operations were performed using Supabase
 
-name (TEXT, NOT NULL)
+Foreign key constraints enforce relational integrity
 
-email (TEXT, UNIQUE, NOT NULL)
+Cascade delete behavior is implemented at the database level
 
-password (TEXT, NOT NULL)
+No frontend interface was used
 
-created_at (TIMESTAMP)
+👩‍💻 Author
 
-Todos Table
-
-id (UUID, Primary Key)
-
-title (TEXT, NOT NULL)
-
-description (TEXT)
-
-is_completed (BOOLEAN, default: false)
-
-user_id (UUID, Foreign Key → users.id)
-
-created_at (TIMESTAMP)
-
-Relationship Rule
-
-One User can have multiple Todos
-
-Each Todo belongs to one User
-
-When a User is deleted, all related todos are deleted automatically using
-ON DELETE CASCADE
-
-How to Run the Project
-Install dependencies
-npm install
-
-Start the server
-npm run dev
-
-API Endpoints
-User APIs
-Signup User
-
-POST /users/signup
-
-{
-  "name": "Triveni",
-  "email": "triveni@test.com",
-  "password": "123456"
-}
-
-Todo APIs (User-Linked)
-Create Todo
-
-POST /todos/add-todo
-
-{
-  "title": "Complete assignment",
-  "description": "User–Todo backend",
-  "userId": "USER_ID"
-}
-
-Get User Todos
-
-GET /todos/get-my-todo/:userId
-
-Update Todo
-
-PUT /todos/update-todo/:todoId
-
-{
-  "is_completed": true
-}
-
-Delete Todo
-
-DELETE /todos/delete-todo/:todoId
-
-Validations & Error Handling
-
-Required field validation
-
-Email format validation
-
-Password length validation
-
-Invalid user ID and todo ID handling
-
-Proper HTTP status codes with clear error messages
-
-Cascade Delete
-
-Cascade delete is implemented at the database level using foreign key constraints.
-Deleting a user automatically deletes all their associated todos, ensuring data integrity.
-
-Testing
-
-All APIs were tested using Postman.
-Responses are returned in JSON format only.
-
-Author
-
-Triveni
+Triveni Balla
 B.Tech (ECE)
